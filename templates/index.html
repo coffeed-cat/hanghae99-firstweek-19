@@ -128,7 +128,7 @@
     <div class="write-form">
         <h1>작성하기</h1>
         <h3>URL</h3>
-        <input class="write-url-input" type="text" placeholder="url을입력해주세요">
+        <input class="write-url-input" type="text" placeholder="url을 입력해주세요">
         <h3>타이틀</h3>
         <input class="write-title-input" type="text" placeholder="타이틀을 입력해주세요">
         <h3>설명</h3>
@@ -137,23 +137,26 @@
     </div>
 </div>
 <div class="card-box">
-        {% for writing in writings %}
-            <div class="mycard" id="{{ writing['_id'] }}">
-                <img class="card-img-top"
-                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-                     alt="Card image cap">
-                <div class="card-body">
-                    <a href="{{ writing['url'] }}"><h5 class="card-title">{{ writing['title'] }}</h5></a>
-                    <p class="card-text">{{ writing['desc'] }}</p>
-                    <p>by {{ writing['writer_id'] }}</p>
-                </div>
+    {% for writing in writings %}
+        <div class="mycard" id="{{ writing['_id'] }}">
+            <img class="card-img-top"
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="{{ writing['url'] }}"><h5 class="card-title">{{ writing['title'] }}</h5></a>
+                <p class="card-text">{{ writing['desc'] }}</p>
+                <p>by {{ writing['writer_id'] }}</p>
+                <i class="{{ writing['like_or_unlike'] }} fa-heart" onclick="toggleLike('{{ writing['_id'] }}')"></i>
+                <p class="like_count">{{ writing['like_count'] }}</p>
             </div>
-        {% endfor %}
+        </div>
+    {% endfor %}
 
 </div>
 
 <script>
 
+    // 로그인 만료 시 로그아웃 하는 스크립트
     {% if msg %}
         alert("{{ msg }}");
         logout();
@@ -162,6 +165,49 @@
     $(document).ready(function () {
         controlLoginButton();
     });
+
+    function toggleLike(writingId) {
+        console.log(writingId);
+        let likeContainer = $(`#${writingId}`);
+        let likeOrUnlke = likeContainer.find('i');
+        if (likeOrUnlke.hasClass('far')) {
+            $.ajax({
+                type: "POST",
+                url: "/update_like",
+                data: {
+                    'writing_id_give': writingId,
+                    'action_give': 'like'
+                },
+                success: function (response) {
+                    if (response['result'] === "success") {
+                        likeOrUnlke.addClass('fas').removeClass('far');
+                        likeContainer.find('.like_count').text(response['count']);
+                    } else {
+                        alert('실패했습니다.');
+                        window.location.reload();
+                    }
+                }
+            })
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/update_like",
+                data: {
+                    'writing_id_give': writingId,
+                    'action_give': 'unlike'
+                },
+                success: function (response) {
+                    if (response['result'] === "success") {
+                        likeOrUnlke.addClass('far').removeClass('fas');
+                        likeContainer.find('.like_count').text(response['count']);
+                    } else {
+                        alert('실패했습니다.');
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+    }
 
     function controlLoginButton() {
         if ($.cookie('mycookie')) {

@@ -104,6 +104,19 @@ h1 {
     width: 100%;
 }
 
+.card-body {
+    position: relative;
+}
+
+.card-body i{
+    color: limegreen;
+    font-size: 25px;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
 
 .boxing {
     display: flex;
