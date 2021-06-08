@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <style>
+
+        .login-button,.logout-button {
+            /* 로그인 로그아웃 버튼 처음엔 안보이게 해놓고 로그인 되어있는지 여부에 따라 controlLoginButton() 함수로 제어 */
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<button class="logout-button" onclick="logout()">Logout</button>
+<button class="login-button" onclick="window.location.href='/login'">Login</button>
+<script>
+
+
+    // 페이지 로드되면 즉시 실행될 함수들
+    $(document).ready(function(){
+        controlLoginButton();
+    });
+
+
+    // 로그인 로그아웃 버튼 제어 함수
+    function controlLoginButton(){
+        if($.cookie('mycookie')){
+            $('.logout-button').show();
+        }else{
+            $('.login-button').show();
+        }
+    }
+
+    // 로그아웃 함수, 로그아웃 버튼 onclick에 붙어있음
+    function logout() {
+        $.removeCookie('mycookie');
+        alert('성공적으로 로그아웃 되었습니다!');
+        window.location.reload();
+    }
+</script>
+</body>
+
+</html>

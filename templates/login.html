@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in | 코박죽</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <style>
+        * {
+            color: limegreen;
+            font-family: 'Roboto Mono', 'Nanum Gothic Coding', monospace;
+            font-size: 20px;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .login-container {
+            border: 2px limegreen dashed;
+            position: relative;
+            top: -80px;
+        }
+
+        .login-idpw-container {
+            padding: 20px;
+        }
+
+        input {
+            background-color: black;
+            border: none;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .login-loginButton, .login-signupButton {
+            flex-grow: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .login-signupButton {
+            border-left: limegreen 2px dashed;
+        }
+
+        .login-footer {
+            display: flex;
+            border-top: limegreen 2px dashed;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-130 {
+            position: relative;
+            top: -70px;
+            width: 350px;
+            height: 227px;
+            text-align: center;
+            transform: scale(0.4);
+            cursor: pointer;
+        }
+
+        .logo-130 p {
+            font-size: 1px;
+        }
+
+        .logo-CBZ {
+            transform: scale(0.7);
+            cursor: pointer;
+        }
+
+        .logo-CBZ p {
+            font-size: 1px;
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <div class="logo-CBZ" onclick="window.location.href='/'">
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCCCCCCCCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BBBBBBBBBBBBBBBBB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZZZZZZZZZZZZZZZZZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkkk</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCC::::::::::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::::::::::::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::::::::::::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;CC:::::::::::::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::::BBBBBB:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::::::::::::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k</p>
+        <p>&nbsp;&nbsp;C:::::CCCCCCCC::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BB:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::ZZZZZZZZ:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k</p>
+        <p>&nbsp;C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCC&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;aaaaaaaaaaaaa&nbsp;&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZZZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oo:::::::::::oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;a::::::::::::a&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oo:::::::::::oo&nbsp;&nbsp;oo:::::::::::oo&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::::::::::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::BBBBBB:::::B&nbsp;&nbsp;&nbsp;aaaaaaaaa:::::a&nbsp;&nbsp;k:::::k&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::::::::::::oo:::::::::::::::o&nbsp;k:::::k&nbsp;&nbsp;k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::ooooo:::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::::::::::BB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a::::a&nbsp;&nbsp;k:::::k&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::ooooo:::::oo:::::ooooo:::::o&nbsp;k:::::k&nbsp;k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::BBBBBB:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaaaaaa:::::a&nbsp;&nbsp;k::::::k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k::::::k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;aa::::::::::::a&nbsp;&nbsp;k:::::::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k:::::::::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;a::::aaaa::::::a&nbsp;&nbsp;k:::::::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k:::::::::::k</p>
+        <p>&nbsp;C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCCo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::Ba::::a&nbsp;&nbsp;&nbsp;&nbsp;a:::::a&nbsp;&nbsp;k::::::k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZ:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZZZo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k::::::k:::::k</p>
+        <p>&nbsp;&nbsp;C:::::CCCCCCCC::::Co:::::ooooo:::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BB:::::BBBBBB::::::Ba::::a&nbsp;&nbsp;&nbsp;&nbsp;a:::::a&nbsp;k::::::k&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z::::::ZZZZZZZZ:::Zo:::::ooooo:::::oo:::::ooooo:::::ok::::::k&nbsp;k:::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;CC:::::::::::::::Co:::::::::::::::o&nbsp;......&nbsp;B:::::::::::::::::B&nbsp;a:::::aaaa::::::a&nbsp;k::::::k&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;......&nbsp;Z:::::::::::::::::Zo:::::::::::::::oo:::::::::::::::ok::::::k&nbsp;&nbsp;k:::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCC::::::::::::C&nbsp;oo:::::::::::oo&nbsp;&nbsp;.::::.&nbsp;B::::::::::::::::B&nbsp;&nbsp;&nbsp;a::::::::::aa:::ak::::::k&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;.::::.&nbsp;Z:::::::::::::::::Z&nbsp;oo:::::::::::oo&nbsp;&nbsp;oo:::::::::::oo&nbsp;k::::::k&nbsp;&nbsp;&nbsp;k:::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCCCCCCCCC&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;......&nbsp;BBBBBBBBBBBBBBBBB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaaaaaaaaa&nbsp;&nbsp;aaaakkkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk&nbsp;......&nbsp;ZZZZZZZZZZZZZZZZZZZ&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;kkkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk</p>
+    </div>
+    <div class="logo-130" onclick="window.location.href='/'">
+        <p>&nbsp;&nbsp;1111111&nbsp;&nbsp;&nbsp;&nbsp;333333333333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;000000000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p>&nbsp;1::::::1&nbsp;&nbsp;&nbsp;3:::::::::::::::33&nbsp;&nbsp;&nbsp;&nbsp;00:::::::::00&nbsp;&nbsp;&nbsp;</p>
+        <p>1:::::::1&nbsp;&nbsp;&nbsp;3::::::33333::::::3 00:::::::::::::00&nbsp;</p>
+        <p>111:::::1&nbsp;&nbsp;&nbsp;3333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::::000:::::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30::::::0&nbsp;&nbsp;&nbsp;0::::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33333333:::::3&nbsp;0:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::::::::3&nbsp;&nbsp;0:::::0&nbsp;000&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33333333:::::3&nbsp;0:::::0&nbsp;000&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30::::::0&nbsp;&nbsp;&nbsp;0::::::0</p>
+        <p>111::::::1113333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::::000:::::::0</p>
+        <p>1::::::::::13::::::33333::::::3&nbsp;00:::::::::::::00&nbsp;</p>
+        <p>1::::::::::13:::::::::::::::33&nbsp;&nbsp;&nbsp;&nbsp;00:::::::::00&nbsp;&nbsp;&nbsp;</p>
+        <p>111111111111&nbsp;333333333333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;000000000&nbsp;&nbsp;</p>
+    </div>
+</div>
+<div class="login-container">
+    <div class="login-idpw-container">
+        <div>Login</div>
+        <p></p>
+        <p></p>
+        <div class="login-id"> id _ <input class="login-id-input" type="text"></div>
+        <p></p>
+        <p></p>
+        <div class="login-password"> pw _ <input class="login-password-input" type="password"></div>
+        <p></p>
+        <p></p>
+    </div>
+    <div class="login-footer">
+        <span class="login-loginButton" onclick="login()">Login</span>
+        <span class="login-signupButton" onclick="window.location.href='/signup'">Sign up</span>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function(){
+        goBackHome();
+    });
+
+    function goBackHome(){
+        if($.cookie('mycookie')){
+            alert('이미 로그인 되어있습니다.');
+            window.location.href='/';
+        }
+    }
+    function login() {
+        let id_give = $('.login-id-input').val();
+        if (!id_give) {
+            alert('아이디를 입력해주세요!');
+            return;
+        }
+        let pw_give = $('.login-password-input').val();
+        if (!pw_give) {
+            alert('비밀번호를 입력해주세요!');
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/api/login",
+            data: {
+                'id_give': id_give,
+                'pw_give': pw_give
+            },
+            success: function (response) {
+                if (response['result'] === "success") {
+                    //token 저장
+                    $.cookie('mycookie', response['token']);
+                    console.log('okok');
+                    window.location.href = '/';
+                } else {
+                    //아이디 또는 비밀번호 확인
+                    alert(response['msg']);
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+</html>
