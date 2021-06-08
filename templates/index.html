@@ -154,6 +154,11 @@
 
 <script>
 
+    {% if msg %}
+        alert("{{ msg }}");
+        logout();
+    {% endif %}
+
     $(document).ready(function () {
         controlLoginButton();
     });

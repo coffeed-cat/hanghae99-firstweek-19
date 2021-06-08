@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -14,10 +14,17 @@ db = client.selfstudy
 
 @app.route('/', methods=['GET'])
 def home():
-    # 게시물들 데이터 보내기
-    writings = list(db.writings.find({}))
-    print(writings)
-    return render_template('index.html',writings=writings)
+    token_receive = request.cookies.get('mycookie')
+    try:
+        # 게시물들 데이터 보내기
+        if token_receive :
+            jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        writings = list(db.writings.find({}))
+        print(writings)
+        return render_template('index.html',writings=writings)
+    except (jwt.ExpiredSignatureError):
+        msg="로그인이 만료되었습니다."
+        return render_template('index.html',msg=msg)
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -81,7 +88,7 @@ def write():
         db.writings.insert_one(newData)
         return jsonify({'result':'success','msg':'작성이 완료되었습니다.'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return jsonify({'result':'fail'})
+        return redirect(url_for("home"))
 
 
 if __name__ == '__main__':

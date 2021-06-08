@@ -43,6 +43,10 @@ body {
     background-size: cover;
 }
 
+input:focus{
+    outline: 0;
+}
+
 h1 {
     margin: 0;
 }
