@@ -5,6 +5,8 @@
     <title>130_코박죽</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -20,26 +22,31 @@
             justify-content: center;
             align-items: center;
         }
+
         .write-url-input, .write-title-input {
             height: 30px;
             width: 400px;
         }
+
         .write-desc-input {
             height: 100px;
             width: 400px;
         }
+
         .write-submit-button {
             margin-top: 30px;
             font-size: 35px;
             height: 60px;
             width: 300px;
         }
+
         .write-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 20px;
         }
+
         .write-openbutton {
             margin: 15px;
             height: 50px;
@@ -76,135 +83,25 @@
         <input class="write-title-input" type="text" placeholder="타이틀을 입력해주세요">
         <h3>설명</h3>
         <input class="write-desc-input" type="text" placeholder="설명을 입력해주세요">
-        <button class="write-submit-button">작성완료</button>
+        <button class="write-submit-button" onclick="submitButton()">작성완료</button>
     </div>
 </div>
 <div class="card-box">
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    {% for writing in writings %}
+        <div class="mycard" id="{{ writing['_id'] }}">
+            <img class="card-img-top"
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="{{ writing['url'] }}"><h5 class="card-title">{{ writing['title'] }}</h5></a>
+                <p class="card-text">{{ writing['desc'] }}</p>
+                <p>by {{ writing['writer_id'] }}</p>
+            </div>
         </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-    <div class="mycard">
-        <img class="card-img-top"
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 
 <script>
-
 
     // 페이지 로드되면 즉시 실행될 함수들
     $(document).ready(function () {
@@ -230,11 +127,15 @@
 
     // 작성하기 열기 닫기 버튼
     function openWriteForm() {
-        let nowdisplay= $('.write-form').css('display');
-        if (nowdisplay==='none') {
+        if (!$.cookie('mycookie')) {
+            alert('로그인이 필요한 기능입니다!');
+            return;
+        }
+        let nowdisplay = $('.write-form').css('display');
+        if (nowdisplay === 'none') {
+            $('.write-form').css('display', "flex");
             $('.write-openbutton').text('작성 창 닫기')
-            $('.write-form').css('display',"flex");
-        }else {
+        } else {
             $('.write-form').hide();
             $('.write-openbutton').text('작성 창 열기')
         }
@@ -242,6 +143,31 @@
 
     // 작성완료버튼
     function submitButton() {
+        if (!$.cookie('mycookie')) {
+            alert('로그인이 필요한 기능입니다!');
+            return;
+        }
+        let title_give = $('.write-title-input').val();
+        let url_give = $('.write-url-input').val();
+        let desc_give = $('.write-desc-input').val();
+        $.ajax({
+            type: "POST",
+            url: "/write",
+            data: {
+                title_give,
+                url_give,
+                desc_give
+            },
+            success: function (response) {
+                if (response['result'] === "success") {
+                    alert(response['msg']);
+                    window.location.reload();
+                } else {
+                    alert('글 작성에 실패했습니다.');
+                    window.location.reload();
+                }
+            }
+        })
 
     }
 </script>

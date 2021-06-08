@@ -14,16 +14,19 @@ db = client.selfstudy
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html');
+    # 게시물들 데이터 보내기
+    writings = list(db.writings.find({}))
+    print(writings)
+    return render_template('index.html',writings=writings)
 
 @app.route('/login', methods=['GET'])
 def login():
-    return render_template('login.html');
+    return render_template('login.html')
 
 
 @app.route('/signup', methods=['GET'])
 def signup():
-    return render_template('signup.html');
+    return render_template('signup.html')
 
 
 @app.route('/api/login', methods=['POST'])
@@ -61,6 +64,24 @@ def api_signup():
     }
     db.users.insert_one(newUser);
     return jsonify({'result': 'success', 'msg': '회원가입이 완료되었습니다.'})
+
+
+@app.route('/write', methods=['POST'])
+def write():
+    token_receive = request.cookies.get('mycookie')
+    print(token_receive)
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        db.users.find_one({'id':payload['id']})
+        writer_id = payload['id']
+        title_receive = request.form['title_give']
+        url_receive = request.form['url_give']
+        desc_receive = request.form['desc_give']
+        newData = {'title':title_receive,'url':url_receive,'desc':desc_receive,'writer_id':writer_id}
+        db.writings.insert_one(newData)
+        return jsonify({'result':'success','msg':'작성이 완료되었습니다.'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return jsonify({'result':'fail'})
 
 
 if __name__ == '__main__':
