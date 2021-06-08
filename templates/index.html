@@ -9,7 +9,49 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        .write-form {
+            background-color: pink;
+            width: 600px;
+            height: 500px;
+            padding: 50px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .write-url-input, .write-title-input {
+            height: 30px;
+            width: 400px;
+        }
+        .write-desc-input {
+            height: 100px;
+            width: 400px;
+        }
+        .write-submit-button {
+            margin-top: 30px;
+            font-size: 35px;
+            height: 60px;
+            width: 300px;
+        }
+        .write-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .write-openbutton {
+            margin: 15px;
+            height: 50px;
+            width: 200px;
+            font-size: 25px;
+        }
+    </style>
+    <script>
+
+    </script>
 </head>
+
 <body>
 <div class="button-box">
     <button class="logout-button" onclick="logout()">Logout</button>
@@ -24,9 +66,24 @@
     <input type="text" id="src" style="text-align: center">
     <a class="search-button" href="#">검색</a>
 </div>
+<div class="write-container">
+    <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기</button>
+    <div class="write-form">
+        <h1>작성하기</h1>
+        <h3>URL</h3>
+        <input class="write-url-input" type="text" placeholder="url을입력해주세요">
+        <h3>타이틀</h3>
+        <input class="write-title-input" type="text" placeholder="타이틀을 입력해주세요">
+        <h3>설명</h3>
+        <input class="write-desc-input" type="text" placeholder="설명을 입력해주세요">
+        <button class="write-submit-button">작성완료</button>
+    </div>
+</div>
 <div class="card-box">
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -35,7 +92,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -44,7 +103,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -53,7 +114,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -62,7 +125,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -71,7 +136,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -80,7 +147,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -89,7 +158,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -98,7 +169,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -107,7 +180,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -116,7 +191,9 @@
         </div>
     </div>
     <div class="mycard">
-        <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png" alt="Card image cap">
+        <img class="card-img-top"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+             alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -149,6 +226,23 @@
         $.removeCookie('mycookie');
         alert('성공적으로 로그아웃 되었습니다!');
         window.location.reload();
+    }
+
+    // 작성하기 열기 닫기 버튼
+    function openWriteForm() {
+        let nowdisplay= $('.write-form').css('display');
+        if (nowdisplay==='none') {
+            $('.write-openbutton').text('작성 창 닫기')
+            $('.write-form').css('display',"flex");
+        }else {
+            $('.write-form').hide();
+            $('.write-openbutton').text('작성 창 열기')
+        }
+    }
+
+    // 작성완료버튼
+    function submitButton() {
+
     }
 </script>
 </body>
