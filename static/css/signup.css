@@ -17,13 +17,14 @@ body {
     flex-direction: column;
 }
 
-.login-container {
+.signup-container {
+    position: relative;
     border: 2px limegreen dashed;
     position: relative;
-    top: -80px;
+    top: -170px;
 }
 
-.login-idpw-container {
+.signup-idpw-container {
     padding: 20px;
 }
 
@@ -36,20 +37,23 @@ input:focus {
     outline: none;
 }
 
-.login-loginButton, .login-signupButton {
+.signup-signupButton {
     flex-grow: 1;
     text-align: center;
     padding: 10px;
     cursor: pointer;
 }
 
-.login-signupButton {
-    border-left: limegreen 2px dashed;
-}
-
-.login-footer {
+.signup-footer {
     display: flex;
     border-top: limegreen 2px dashed;
+}
+
+.back-to-login {
+    position: absolute;
+    bottom: -50px;
+    left: -40px;
+    cursor: pointer;
 }
 
 .logo {
@@ -57,6 +61,7 @@ input:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transform: scale(0.3);
 }
 
 .logo-130 {
@@ -80,4 +85,10 @@ input:focus {
 
 .logo-CBZ p {
     font-size: 1px;
+}
+
+.signup-id-should, .signup-password-should {
+    font-size: 3px;
+    margin: 0;
+    margin-top: 10px;
 }
