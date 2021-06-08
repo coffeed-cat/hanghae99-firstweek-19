@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
     <style>
         * {
@@ -133,10 +133,11 @@
         <input class="write-title-input" type="text" placeholder="타이틀을 입력해주세요">
         <h3>설명</h3>
         <input class="write-desc-input" type="text" placeholder="설명을 입력해주세요">
-        <button onclick="submitButton()" class="write-submit-button" style="color: green">작성완료</button>
+        <button class="write-submit-button" style="color: green">작성완료</button>
     </div>
 </div>
 <div class="card-box">
+    <div class="boxing">
         {% for writing in writings %}
             <div class="mycard" id="{{ writing['_id'] }}">
                 <img class="card-img-top"
@@ -149,7 +150,7 @@
                 </div>
             </div>
         {% endfor %}
-
+    </div>
 </div>
 
 <script>

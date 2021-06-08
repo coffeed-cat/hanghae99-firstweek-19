@@ -110,7 +110,6 @@ html, body {
         }
 
         .logout-button {
-            display: none;
             color: white;
             background-color: transparent;
             border: green 3px solid;
@@ -118,7 +117,6 @@ html, body {
             border-radius: 10px;
         }
         .login-button {
-            display: none;
             color: white;
             background-color: transparent;
             border: green 3px solid;
