@@ -1,3 +1,73 @@
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Jua', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .search-button {
+            color: black;
+            text-decoration: none;
+        }
+
+        #main {
+            /*background: url("https://cdn.discordapp.com/attachments/851270781815357454/851277340298051605/cool-retro-term_screen.png") no-repeat;*/
+            /*background-size: cover;*/
+            /*background-position: center center;*/
+        }
+
+        #logo {
+            text-align: left;
+        }
+
+        #src {
+            width: 430px;
+            height: 40px;
+        }
+
+        #font_1 {
+            font-size: 4.5rem;
+            color: #f27500;
+        }
+
+        #font_2 {
+            font-size: 4.5rem;
+            color: #f27500;
+        }
+
+        #font_3 {
+            font-size: 4.5rem;
+            color: #f27500;
+        }
+
+        .card-box {
+            width: 65%;
+        }
+
+        .mycard {
+            display: inline-block;
+            width: 27%;
+            margin: 10px;
+            border: black 3px solid;
+            padding: 5px;
+        }
+
+        .mycard img{
+            width: 100%;
+        }
+
+
 .login-button, .logout-button {
     /* 로그인 로그아웃 버튼 처음엔 안보이게 해놓고 로그인 되어있는지 여부에 따라 controlLoginButton() 함수로 제어 */
     display: none;
