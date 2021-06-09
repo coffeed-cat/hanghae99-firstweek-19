@@ -34,15 +34,15 @@
             border-radius: 10px;
         }
 
-        .write-form input{
+        .write-form input {
             text-align: center;
         }
 
-        .write-form textarea{
+        .write-form textarea {
             text-align: center;
         }
 
-        .write-form textarea:focus{
+        .write-form textarea:focus {
             outline: none;
         }
 
@@ -132,6 +132,15 @@
 
         .search-box {
             display: none;
+            position: relative;
+        }
+
+        .fa-undo {
+            color: white;
+            position: absolute;
+            font-size: 50px;
+            top: 25px;
+            left: -80px;
         }
 
     </style>
@@ -158,7 +167,8 @@
     </a>
 </div>
 <div class="write-container">
-    <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+    <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기&nbsp;<i class="fa fa-pencil-square-o"
+                                                                               aria-hidden="true"></i></button>
     <div class="write-form">
         <h1>작성하기</h1>
         <h3>URL</h3>
@@ -171,6 +181,7 @@
     </div>
 </div>
 <div class="search-box">
+    <i onclick="back_home()" class="fa fa-undo" aria-hidden="true"></i>
 </div>
 <div class="card-box">
     {% for writing in writings %}
@@ -220,7 +231,7 @@
     });
 
     function writingsMaxChecker() {
-        if (document.querySelector('.card-box').childElementCount === max_load+1) {
+        if (document.querySelector('.card-box').childElementCount === max_load + 1) {
             $('.more-button').hide();
         }
     }
@@ -378,6 +389,8 @@
     function searchWord() {
         let title_give = $('#src').val();
         $('.card-box').hide()
+        $('.search-box').show()
+        $('.search-box .mycard').remove()
         $.ajax({
             type: "GET",
             url: `/search?title_give=${title_give}`,
@@ -387,17 +400,21 @@
                     console.log(response['search_result'])
                     let search_result = response['search_result']
                     for (let i = 0; i < search_result.length; i++) {
-                        let newdata = `<div class="mycard" id="${search_result[i]['_id']}">
-                                    <img class="card-img-top"
-                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
-                                         alt="Card image cap">
-                                    <div class="card-body">
-                                        <a href="${search_result[i]['url']}"><h5 class="card-title">${search_result[i]['title']}</h5></a>
-                                        <p class="card-text">${search_result[i]['desc']}</p>
-                                        <p>by ${search_result[i]['writer_id']}</p>
-                                    </div>
-                                    </div>`
-                        $('.search-box').append(newdata);
+                        let newData = `
+                        <div class="mycard" id="${search_result[i]['_id']}">
+                            <img class="card-img-top"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <a href="${search_result[i]['url']}"><h5 class="card-title">${search_result[i]['title']}</h5></a>
+                                <p class="card-text">${search_result[i]['desc']}</p>
+                                <p>by ${search_result[i]['writer_id']}</p>
+                                <i class="${search_result[i]['like_or_unlike']} fa-heart" onclick="toggleLike('${search_result[i]['_id']}')"></i>
+                                <p class="like_count">${search_result[i]['like_count']}</p>
+                            </div>
+                        </div>
+                        `;
+                        $('.search-box').append(newData);
                     }
                 }
 
@@ -405,9 +422,49 @@
         })
     }
 
+    function back_home() {
+        reloadCardBox();
+        $('.card-box').show();
+        $('.search-box').hide();
+    }
+
     $(function () {
         $("html, body").animate({scrollTop: 0}, "fast");
     });
+
+    function reloadCardBox() {
+        let nowCount = document.querySelector('.card-box').childElementCount - 1;
+        $('.card-box .mycard').remove();
+        $.ajax({
+            type: "GET",
+            url: `/reload?count=${nowCount}`,
+            data: {},
+            success: function (response) {
+                if (response['result'] === 'success') {
+                    let writings = response['writings'];
+                    for (let i = 0; i < writings.length; i++) {
+                        let newData = `
+                        <div class="mycard" id="${writings[i]['_id']}">
+                            <img class="card-img-top"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <a href="${writings[i]['url']}"><h5 class="card-title">${writings[i]['title']}</h5></a>
+                                <p class="card-text">${writings[i]['desc']}</p>
+                                <p>by ${writings[i]['writer_id']}</p>
+                                <i class="${writings[i]['like_or_unlike']} fa-heart" onclick="toggleLike('${writings[i]['_id']}')"></i>
+                                <p class="like_count">${writings[i]['like_count']}</p>
+                            </div>
+                        </div>
+                        `;
+                        $('.card-box').append(newData);
+                    }
+                }
+            }
+        })
+    }
+
+
 
 </script>
 </body>

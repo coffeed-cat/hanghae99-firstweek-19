@@ -162,11 +162,57 @@ def updateLike():
 
 @app.route('/search', methods=['GET'])
 def search():
+    token_receive = request.cookies.get('mycookie')
     title_receive = request.args.get('title_give')
     search_list = list(db.writings.find({'title':{'$regex':title_receive}}))
-    for i in search_list:
-        i['_id']=str(i['_id'])
-    return jsonify({'result':'success','search_result':search_list})
+
+    try:
+        if token_receive:
+            user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+            for writing in search_list:
+                writing['like_or_unlike'] = 'fas' if bool(
+                    db.likes.find_one({'writing_id': str(writing['_id']), 'user_id': user_info['id']})) else 'far'
+        else:
+            for writing in search_list:
+                writing['like_or_unlike'] = 'far'
+
+        for writing in search_list:
+            writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
+            writing['_id'] = str(writing['_id'])
+
+        return jsonify({'result': 'success', 'search_result': search_list})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
+
+@app.route('/reload', methods=['GET'])
+def reload():
+    token_receive = request.cookies.get('mycookie')
+    count = int(request.args.get('count'))
+    try:
+        whole_writings = list(db.writings.find({}))
+        writings = whole_writings[0:count]
+        if len(writings)==0:
+            return jsonify({'result': 'fail'})
+        if token_receive:
+            user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+            for writing in writings:
+                writing['like_or_unlike'] = 'fas' if bool(
+                    db.likes.find_one({'writing_id': str(writing['_id']), 'user_id': user_info['id']})) else 'far'
+        else:
+            for writing in writings:
+                writing['like_or_unlike'] = 'far'
+
+        for writing in writings:
+            writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
+            writing['_id'] = str(writing['_id'])
+
+        return jsonify({'result':'success', 'writings':writings})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
