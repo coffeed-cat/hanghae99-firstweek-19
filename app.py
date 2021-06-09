@@ -163,7 +163,14 @@ def updateLike():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
-
+@app.route('/search', methods=['GET'])
+def search():
+    title_receive = request.args.get('title_give')
+    search_list = list(db.writings.find({'title':{'$regex':title_receive}}))
+    print(search_list)
+    for i in search_list:
+        i['_id']=str(i['_id'])
+    return jsonify({'result':'success','search_result':search_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

@@ -4,13 +4,6 @@
     <meta charset="UTF-8">
     <title>130_코박죽</title>
 
-    {#    자동완성 기능 스크립트들    #}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script>var jb = jQuery.noConflict();</script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    {#    자동완성 기능 스크립트들    #}
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -124,8 +117,10 @@
     <h1><span id="font_3">죽</span>을 때까지</h1>
 </div>
 <div class="boxing">
-    <input type="text" id="src">
-    <a class="search-button" href="#">검색</a>
+    <input type="text" id="src" style="text-align: center">
+    <a class="search-button" onclick="searchWord()" href="#" id="search-box">
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </a>
 </div>
 <div class="write-container">
     <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기</button>
@@ -139,6 +134,8 @@
         <input class="write-desc-input" type="text" placeholder="설명을 입력해주세요">
         <button onclick="submitButton()" class="write-submit-button" style="color: green">작성완료</button>
     </div>
+</div>
+<div class="search-box">
 </div>
 <div class="card-box">
     {% for writing in writings %}
@@ -155,8 +152,8 @@
             </div>
         </div>
     {% endfor %}
-</div>
 <button class="more-button" onclick="loadWriting()">More</button>
+</div>
 
 <script>
 
@@ -179,6 +176,10 @@
     $(document).ready(function () {
         controlLoginButton();
         writingsMaxChecker();
+        $('.write-openbutton').click(function () {
+            let offset = $('.write-openbutton').offset();
+            $('html').animate({scrollTop: offset.top}, 400);
+        })
     });
 
     function writingsMaxChecker() {
@@ -289,9 +290,17 @@
         if (nowdisplay === 'none') {
             $('.write-form').css('display', "flex");
             $('.write-openbutton').text('작성 창 닫기')
+            let newdata = document.createElement('i')
+            newdata.setAttribute('class', 'fa fa-times')
+            newdata.setAttribute('aria-hidden', 'true')
+            $('.write-openbutton').append(newdata)
         } else {
             $('.write-form').hide();
             $('.write-openbutton').text('작성 창 열기')
+            let newdata = document.createElement('i')
+            newdata.setAttribute('class', 'fa fa-pencil-square-o')
+            newdata.setAttribute('aria-hidden', 'true')
+            $('.write-openbutton').append(newdata)
         }
     }
 
@@ -322,8 +331,43 @@
                 }
             }
         })
-
     }
+
+
+    function searchWord() {
+        let title_give = $('#src').val();
+        $('.card-box').hide()
+        $.ajax({
+            type: "GET",
+            url: `/search?title_give=${title_give}`,
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    console.log(response['search_result'])
+                    let search_result = response['search_result']
+                    for (let i = 0; i < search_result.length; i++) {
+                        let newdata = `<div class="mycard" id="${search_result[i]['_id']}">
+                                    <img class="card-img-top"
+                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+                                         alt="Card image cap">
+                                    <div class="card-body">
+                                        <a href="${search_result[i]['url']}"><h5 class="card-title">${search_result[i]['title']}</h5></a>
+                                        <p class="card-text">${search_result[i]['desc']}</p>
+                                        <p>by ${search_result[i]['writer_id']}</p>
+                                    </div>
+                                    </div>`
+                        $('.search-box').append(newdata);
+                    }
+                }
+
+            }
+        })
+    }
+
+    $(function () {
+        $("html, body").animate({scrollTop: 0}, "fast");
+    });
+
 </script>
 </body>
 

@@ -77,21 +77,19 @@ h1 {
     color: #f27500;
 }
 
-.card-box {
-    width: 100%;
+.card-box,.search-box {
+    width: 70%;
     margin-top: 80px;
 }
 
 .mycard {
     color: white;
-
     display: inline-block;
-    width: 30%;
-    margin: 14px;
+    width: 28%;
+    margin: 12px;
     border: green 3px solid;
     padding: 5px;
     border-radius: 10px;
-    /*transition: all 400ms linear;*/
 }
 
 .mycard:hover {
