@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
@@ -31,7 +32,18 @@
             align-items: center;
             border: green 3px solid;
             border-radius: 10px;
+        }
 
+        .write-form input{
+            text-align: center;
+        }
+
+        .write-form textarea{
+            text-align: center;
+        }
+
+        .write-form textarea:focus{
+            outline: none;
         }
 
         .write-url-input, .write-title-input {
@@ -99,6 +111,29 @@
             width: 100%;
             padding-top: 30px;
         }
+
+        .more-button-container {
+            display: flex;
+            width: 100%;
+            height: 100px;
+            justify-content: center;
+        }
+
+        .more-button {
+            font-family: 'Roboto Mono', 'Nanum Gothic Coding', monospace;
+            width: 200px;
+            height: 70px;
+            color: limegreen;
+            font-size: 30px;
+            background-color: black;
+            border: limegreen 3px dashed;
+            cursor: pointer;
+        }
+
+        .search-box {
+            display: none;
+        }
+
     </style>
 </head>
 
@@ -123,7 +158,7 @@
     </a>
 </div>
 <div class="write-container">
-    <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기</button>
+    <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
     <div class="write-form">
         <h1>작성하기</h1>
         <h3>URL</h3>
@@ -131,7 +166,7 @@
         <h3>타이틀</h3>
         <input class="write-title-input" type="text" placeholder="타이틀을 입력해주세요">
         <h3>설명</h3>
-        <input class="write-desc-input" type="text" placeholder="설명을 입력해주세요">
+        <textarea class="write-desc-input" type="text" placeholder="설명을 입력해주세요" rows="3"></textarea>
         <button onclick="submitButton()" class="write-submit-button" style="color: green">작성완료</button>
     </div>
 </div>
@@ -152,7 +187,9 @@
             </div>
         </div>
     {% endfor %}
-<button class="more-button" onclick="loadWriting()">More</button>
+    <div class="more-button-container">
+        <button class="more-button" onclick="loadWriting()">More</button>
+    </div>
 </div>
 
 <script>
@@ -183,7 +220,7 @@
     });
 
     function writingsMaxChecker() {
-        if (document.querySelector('.card-box').childElementCount === max_load) {
+        if (document.querySelector('.card-box').childElementCount === max_load+1) {
             $('.more-button').hide();
         }
     }
@@ -224,6 +261,10 @@
     }
 
     function toggleLike(writingId) {
+        if (!$.cookie('mycookie')) {
+            alert('로그인이 필요한 기능입니다!');
+            return;
+        }
         console.log(writingId);
         let likeContainer = $(`#${writingId}`);
         let likeOrUnlke = likeContainer.find('i');
@@ -289,14 +330,14 @@
         let nowdisplay = $('.write-form').css('display');
         if (nowdisplay === 'none') {
             $('.write-form').css('display', "flex");
-            $('.write-openbutton').text('작성 창 닫기')
+            $('.write-openbutton').text('작성 창 닫기 ')
             let newdata = document.createElement('i')
             newdata.setAttribute('class', 'fa fa-times')
             newdata.setAttribute('aria-hidden', 'true')
             $('.write-openbutton').append(newdata)
         } else {
             $('.write-form').hide();
-            $('.write-openbutton').text('작성 창 열기')
+            $('.write-openbutton').text('작성 창 열기 ')
             let newdata = document.createElement('i')
             newdata.setAttribute('class', 'fa fa-pencil-square-o')
             newdata.setAttribute('aria-hidden', 'true')

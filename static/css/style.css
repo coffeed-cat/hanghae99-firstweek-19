@@ -90,6 +90,8 @@ h1 {
     border: green 3px solid;
     padding: 5px;
     border-radius: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .mycard:hover {
@@ -161,19 +163,21 @@ h1 {
 }
 
 .logout-button {
-    display: none;
     color: white;
     background-color: transparent;
     border: green 3px solid;
     outline: 0;
     border-radius: 10px;
+    display: none;
+    padding: 12px;
 }
 
 .login-button {
-    display: none;
+    padding: 12px;
     color: white;
     background-color: transparent;
     border: green 3px solid;
     outline: 0;
     border-radius: 10px;
+    display: none;
 }

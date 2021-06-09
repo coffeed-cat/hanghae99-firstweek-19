@@ -23,7 +23,6 @@ def home():
         # writings 배열을 반복문 돌린다 ->
         # 각 요소의 총 좋아요 갯수
         # 로그인 되있을 시 bool(게시물id,유저id)로 좋아요 여부에 따라 여기서 far fas 구분해서 보냄
-        print(writings)
         if token_receive:
             user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
             for writing in writings:
@@ -54,7 +53,6 @@ def getWriting():
         # 로그인 되있을 시 bool(게시물id,유저id)로 좋아요 여부에 따라 여기서 far fas 구분해서 보냄
         whole_writings = list(db.writings.find({}))
         writings = whole_writings[times * 21:(times + 1) * 21]
-        print(writings)
         if len(writings)==0:
             return jsonify({'result': 'fail'})
         if token_receive:
@@ -126,7 +124,6 @@ def api_signup():
 @app.route('/write', methods=['POST'])
 def write():
     token_receive = request.cookies.get('mycookie')
-    print(token_receive)
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         db.users.find_one({'id': payload['id']})
@@ -167,7 +164,6 @@ def updateLike():
 def search():
     title_receive = request.args.get('title_give')
     search_list = list(db.writings.find({'title':{'$regex':title_receive}}))
-    print(search_list)
     for i in search_list:
         i['_id']=str(i['_id'])
     return jsonify({'result':'success','search_result':search_list})
