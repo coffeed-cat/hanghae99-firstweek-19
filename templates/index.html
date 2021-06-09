@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>130_코박죽</title>
+
+    {#    자동완성 기능 스크립트들    #}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>var jb = jQuery.noConflict();</script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    {#    자동완성 기능 스크립트들    #}
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -12,6 +20,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <link rel="stylesheet" href="../static/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+
     <style>
         * {
             font-family: 'Gugi', cursive;
@@ -98,9 +107,6 @@
             padding-top: 30px;
         }
     </style>
-    <script>
-
-    </script>
 </head>
 
 <body>
@@ -109,11 +115,9 @@
     <div class="button-box">
         <button class="login-button" onclick="window.location.href='/login'">Login</button>
         <button class="logout-button" onclick="logout()">Logout</button>
-
     </div>
+
 </header>
-
-
 <div id="logo">
     <h1><span id="font_1">코</span>딩하다 머리</h1>
     <h1><span id="font_2">박</span>고</h1>
@@ -151,8 +155,8 @@
             </div>
         </div>
     {% endfor %}
-
 </div>
+<button class="more-button" onclick="loadWriting()">More</button>
 
 <script>
 
@@ -162,9 +166,61 @@
         logout();
     {% endif %}
 
+    let max_load = 0;
+
+    {% if max %}
+        max_load = {{ max }};
+    {% endif %}
+
+    //전역변수
+    let load_count = 1;
+
+
     $(document).ready(function () {
         controlLoginButton();
+        writingsMaxChecker();
     });
+
+    function writingsMaxChecker() {
+        if (document.querySelector('.card-box').childElementCount === max_load) {
+            $('.more-button').hide();
+        }
+    }
+
+    function loadWriting() {
+        console.log(load_count);
+        $.ajax({
+            type: "GET",
+            url: `/get_writing?times=${load_count}`,
+            data: {},
+            success: function (response) {
+                if (response['result'] === 'success') {
+                    let writings = response['writings'];
+                    for (let i = 0; i < writings.length; i++) {
+                        let newData = `
+                        <div class="mycard" id="${writings[i]['_id']}">
+                            <img class="card-img-top"
+                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <a href="${writings[i]['url']}"><h5 class="card-title">${writings[i]['title']}</h5></a>
+                                <p class="card-text">${writings[i]['desc']}</p>
+                                <p>by ${writings[i]['writer_id']}</p>
+                                <i class="${writings[i]['like_or_unlike']} fa-heart" onclick="toggleLike('${writings[i]['_id']}')"></i>
+                                <p class="like_count">${writings[i]['like_count']}</p>
+                            </div>
+                        </div>
+                        `;
+                        $('.card-box').append(newData);
+                    }
+                    load_count += 1;
+                    writingsMaxChecker();
+                } else {
+                    console.log('there is no any writing')
+                }
+            }
+        })
+    }
 
     function toggleLike(writingId) {
         console.log(writingId);

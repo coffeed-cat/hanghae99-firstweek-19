@@ -13,33 +13,68 @@ client = MongoClient('localhost', 27017)
 db = client.selfstudy
 
 
-
 @app.route('/', methods=['GET'])
 def home():
-    # 로그인 만료 체크기능, 게시물들 로드, 좋아요 갯수, 로그인 돼있을 시 좋아요 여부
+    # 로그인 만료 체크기능
     token_receive = request.cookies.get('mycookie')
+    whole_writings = list(db.writings.find({}))
+    writings = whole_writings[0:21]
     try:
         # writings 배열을 반복문 돌린다 ->
         # 각 요소의 총 좋아요 갯수
         # 로그인 되있을 시 bool(게시물id,유저id)로 좋아요 여부에 따라 여기서 far fas 구분해서 보냄
-        writings = list(db.writings.find({}))
-
-        if token_receive :
+        print(writings)
+        if token_receive:
             user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-            for writing in writings :
-                writing['like_or_unlike'] = 'fas' if bool(db.likes.find_one({'writing_id':str(writing['_id']),'user_id':user_info['id']})) else 'far'
+            for writing in writings:
+                writing['like_or_unlike'] = 'fas' if bool(
+                    db.likes.find_one({'writing_id': str(writing['_id']), 'user_id': user_info['id']})) else 'far'
         else:
             for writing in writings:
                 writing['like_or_unlike'] = 'far'
 
-        for writing in writings :
-            writing['like_count'] = db.likes.count_documents({'writing_id':str(writing['_id'])})
+        for writing in writings:
+            writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
 
-        return render_template('index.html',writings=writings)
+        return render_template('index.html',writings=writings, max=len(whole_writings))
 
     except (jwt.ExpiredSignatureError):
-        msg="로그인이 만료되었습니다."
-        return render_template('index.html',msg=msg)
+        msg = "로그인이 만료되었습니다."
+        return render_template('index.html', msg=msg)
+
+
+@app.route('/get_writing', methods=['GET'])
+def getWriting():
+    # 로그인 만료 체크기능, 게시물들 로드, 좋아요 갯수, 로그인 돼있을 시 좋아요 여부
+    token_receive = request.cookies.get('mycookie')
+    times = int(request.args.get('times'))
+    try:
+        # writings 배열을 반복문 돌린다 ->
+        # 각 요소의 총 좋아요 갯수
+        # 로그인 되있을 시 bool(게시물id,유저id)로 좋아요 여부에 따라 여기서 far fas 구분해서 보냄
+        whole_writings = list(db.writings.find({}))
+        writings = whole_writings[times * 21:(times + 1) * 21]
+        print(writings)
+        if len(writings)==0:
+            return jsonify({'result': 'fail'})
+        if token_receive:
+            user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+            for writing in writings:
+                writing['like_or_unlike'] = 'fas' if bool(
+                    db.likes.find_one({'writing_id': str(writing['_id']), 'user_id': user_info['id']})) else 'far'
+        else:
+            for writing in writings:
+                writing['like_or_unlike'] = 'far'
+
+        for writing in writings:
+            writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
+            writing['_id'] = str(writing['_id'])
+
+        return jsonify({'result':'success', 'writings':writings})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -94,36 +129,37 @@ def write():
     print(token_receive)
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        db.users.find_one({'id':payload['id']})
+        db.users.find_one({'id': payload['id']})
         writer_id = payload['id']
         title_receive = request.form['title_give']
         url_receive = request.form['url_give']
         desc_receive = request.form['desc_give']
-        newData = {'title':title_receive,'url':url_receive,'desc':desc_receive,'writer_id':writer_id}
+        newData = {'title': title_receive, 'url': url_receive, 'desc': desc_receive, 'writer_id': writer_id}
         db.writings.insert_one(newData)
-        return jsonify({'result':'success','msg':'작성이 완료되었습니다.'})
+        return jsonify({'result': 'success', 'msg': '작성이 완료되었습니다.'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
+
 
 @app.route('/update_like', methods=['POST'])
 def updateLike():
     token_receive = request.cookies.get('mycookie')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({'user_id':payload['id']})
+        user_info = db.users.find_one({'user_id': payload['id']})
         writing_id_receive = request.form['writing_id_give']
         action_receive = request.form['action_give']
         newData = {
-            'writing_id':writing_id_receive,
-            'user_id' : user_info['user_id']
+            'writing_id': writing_id_receive,
+            'user_id': user_info['user_id']
         }
-        if action_receive == "like" :
+        if action_receive == "like":
             db.likes.insert_one(newData)
-        elif action_receive == "unlike" :
+        elif action_receive == "unlike":
             db.likes.delete_one(newData)
         # 카운트 결과를 반환
-        count = db.likes.count_documents({'writing_id':writing_id_receive})
-        return jsonify({'result':'success','count':count})
+        count = db.likes.count_documents({'writing_id': writing_id_receive})
+        return jsonify({'result': 'success', 'count': count})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
