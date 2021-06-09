@@ -1,28 +1,29 @@
 @-webkit-keyframes slide-top {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(-100px);
-            transform: translateY(-100px);
-  }
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px);
+    }
 }
+
 @keyframes slide-top {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(-100px);
-            transform: translateY(-100px);
-  }
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px);
+    }
 }
 
 
 .slide-top {
-	-webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 html, body {
@@ -37,13 +38,13 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
+    background-color: black;
     background-image: url("https://i0.wp.com/code.iamseapy.com/wp-content/uploads/2017/11/cool-retro-term_screen.mov-00.06.15.000.png?resize=625%2C352&ssl=1");
     background-position: center center;
     background-size: cover;
 }
 
-input:focus{
+input:focus {
     outline: 0;
 }
 
@@ -77,7 +78,7 @@ h1 {
     color: #f27500;
 }
 
-.card-box,.search-box {
+.card-box, .search-box {
     width: 70%;
     margin-top: 80px;
 }
@@ -87,7 +88,7 @@ h1 {
     display: inline-block;
     width: 28%;
     margin: 12px;
-    border: green 3px solid;
+    border: limegreen 3px solid;
     padding: 5px;
     border-radius: 10px;
     max-width: 100%;
@@ -96,7 +97,7 @@ h1 {
 
 .mycard:hover {
     -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 
@@ -104,19 +105,31 @@ h1 {
     width: 100%;
 }
 
+
 .card-body {
     position: relative;
 }
 
-.card-body i{
-    color: limegreen;
-    font-size: 25px;
+.like-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     right: 15px;
-    bottom: 10px;
+    bottom: 15px;
+}
+
+.card-body i {
+    color: limegreen;
+    font-size: 25px;
     cursor: pointer;
 }
 
+.like_count {
+    margin: 0;
+    margin-top: 6px;
+}
 
 .boxing {
     display: flex;
@@ -133,7 +146,7 @@ h1 {
 .search-button {
     text-decoration: none;
     display: inline-block;
-    border: 2px solid green;
+    border: 2px solid limegreen;
     border-radius: 20px;
     padding: 10px 20px;
     color: white;
@@ -146,7 +159,7 @@ h1 {
     content: '';
     width: 0;
     height: 100%;
-    background-color: green;
+    background-color: limegreen;
     position: absolute;
     left: 0;
     top: 0;
@@ -165,7 +178,7 @@ h1 {
 .logout-button {
     color: white;
     background-color: transparent;
-    border: green 3px solid;
+    border: limegreen 3px solid;
     outline: 0;
     border-radius: 10px;
     display: none;
@@ -176,7 +189,7 @@ h1 {
     padding: 12px;
     color: white;
     background-color: transparent;
-    border: green 3px solid;
+    border: limegreen 3px solid;
     outline: 0;
     border-radius: 10px;
     display: none;

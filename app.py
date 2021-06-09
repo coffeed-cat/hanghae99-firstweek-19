@@ -3,11 +3,14 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 app = Flask(__name__)
 
 from pymongo import MongoClient
-
 import jwt
 import datetime
 import hashlib
+import requests
+from bs4 import BeautifulSoup
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 SECRET_KEY = 'HappyProject'
 client = MongoClient('localhost', 27017)
 db = client.selfstudy
@@ -35,7 +38,7 @@ def home():
         for writing in writings:
             writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
 
-        return render_template('index.html',writings=writings, max=len(whole_writings))
+        return render_template('index.html', writings=writings, max=len(whole_writings))
 
     except (jwt.ExpiredSignatureError):
         msg = "로그인이 만료되었습니다."
@@ -53,7 +56,7 @@ def getWriting():
         # 로그인 되있을 시 bool(게시물id,유저id)로 좋아요 여부에 따라 여기서 far fas 구분해서 보냄
         whole_writings = list(db.writings.find({}))
         writings = whole_writings[times * 21:(times + 1) * 21]
-        if len(writings)==0:
+        if len(writings) == 0:
             return jsonify({'result': 'fail'})
         if token_receive:
             user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -68,7 +71,7 @@ def getWriting():
             writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
             writing['_id'] = str(writing['_id'])
 
-        return jsonify({'result':'success', 'writings':writings})
+        return jsonify({'result': 'success', 'writings': writings})
 
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
@@ -125,13 +128,20 @@ def api_signup():
 def write():
     token_receive = request.cookies.get('mycookie')
     try:
+        # 사용자 검증
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         db.users.find_one({'id': payload['id']})
+
+        # 크롤링
+        url_receive = request.form['url_give']
+        data = requests.get(url_receive, headers=headers)
+        soup = BeautifulSoup(data.text, 'html.parser')
+        img_url = soup.select_one('meta[property="og:image"]')['content']
+
         writer_id = payload['id']
         title_receive = request.form['title_give']
-        url_receive = request.form['url_give']
         desc_receive = request.form['desc_give']
-        newData = {'title': title_receive, 'url': url_receive, 'desc': desc_receive, 'writer_id': writer_id}
+        newData = {'title': title_receive, 'url': url_receive, 'desc': desc_receive, 'writer_id': writer_id, 'img_url':img_url}
         db.writings.insert_one(newData)
         return jsonify({'result': 'success', 'msg': '작성이 완료되었습니다.'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
@@ -160,11 +170,12 @@ def updateLike():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
+
 @app.route('/search', methods=['GET'])
 def search():
     token_receive = request.cookies.get('mycookie')
     title_receive = request.args.get('title_give')
-    search_list = list(db.writings.find({'title':{'$regex':title_receive}}))
+    search_list = list(db.writings.find({'title': {'$regex': title_receive}}))
 
     try:
         if token_receive:
@@ -193,7 +204,7 @@ def reload():
     try:
         whole_writings = list(db.writings.find({}))
         writings = whole_writings[0:count]
-        if len(writings)==0:
+        if len(writings) == 0:
             return jsonify({'result': 'fail'})
         if token_receive:
             user_info = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -208,7 +219,7 @@ def reload():
             writing['like_count'] = db.likes.count_documents({'writing_id': str(writing['_id'])})
             writing['_id'] = str(writing['_id'])
 
-        return jsonify({'result':'success', 'writings':writings})
+        return jsonify({'result': 'success', 'writings': writings})
 
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
