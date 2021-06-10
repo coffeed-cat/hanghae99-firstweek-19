@@ -12,12 +12,13 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
     <style>
         * {
-            font-family: 'Gugi', cursive;
+            font-family: 'Roboto Mono', 'Nanum Gothic Coding', monospace, sans-serif;
+            color: limegreen;
         }
 
         .write-form {
@@ -30,15 +31,22 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border: limegreen 3px solid;
-            border-radius: 10px;
+            border: limegreen 1px dashed;
         }
 
         .write-form input {
+            padding: 8px;
+            font-size: 18px;
+            border: limegreen 1px solid;
+            background-color: transparent;
             text-align: center;
         }
 
         .write-form textarea {
+            padding: 8px;
+            font-size: 13px;
+            border: limegreen 1px solid;
+            background-color: transparent;
             text-align: center;
         }
 
@@ -47,45 +55,48 @@
         }
 
         .write-url-input, .write-title-input {
-            border-radius: 15px;
-            height: 30px;
+            height: 35px;
             width: 400px;
         }
 
         .write-desc-input {
-            border-radius: 15px;
             height: 100px;
             width: 400px;
         }
 
         .write-submit-button {
+            cursor: pointer;
             margin-top: 30px;
-            font-size: 35px;
+            font-size: 20px;
             height: 60px;
-            width: 300px;
+            width: 200px;
             background-color: transparent;
-            border: limegreen 3px solid;
+            border: limegreen 1px solid;
             outline: 0;
-            border-radius: 10px;
+            transition: all 80ms linear;
+        }
+
+        .write-submit-button:hover {
+            background-color: rgba(204,204,204,0.2);
         }
 
         .write-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-
+            position: relative;
+            top: -70px;
         }
 
         .write-openbutton {
-            color: white;
+            cursor: pointer;
             margin: 15px;
             height: 50px;
-            width: 200px;
+            width: 260px;
             font-size: 25px;
-            background-color: transparent;
-            border: limegreen 3px solid;
+            background-color: black;
+            border: limegreen 1px solid;
             outline: 0;
-            border-radius: 10px;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -95,7 +106,8 @@
             content: '';
             width: 0;
             height: 100%;
-            background-color: limegreen;
+            background-color: gray;
+            opacity: 0.3;
             position: absolute;
             left: 0;
             top: 0;
@@ -109,7 +121,7 @@
 
         header {
             width: 100%;
-            padding-top: 30px;
+            padding-top: 20px;
         }
 
         .more-button-container {
@@ -149,38 +161,74 @@
 
 <body>
 <header>
-
     <div class="button-box">
         <button class="login-button" onclick="window.location.href='/login'">Login</button>
         <button class="logout-button" onclick="logout()">Logout</button>
     </div>
-
 </header>
-<div id="logo">
-    <h1><span id="font_1">코</span>딩하다 머리</h1>
-    <h1><span id="font_2">박</span>고</h1>
-    <h1><span id="font_3">죽</span>을 때까지</h1>
+<div class="logo">
+    <div class="logo-CBZ">
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCCCCCCCCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BBBBBBBBBBBBBBBBB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZZZZZZZZZZZZZZZZZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkkk</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCC::::::::::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::::::::::::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::::::::::::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;CC:::::::::::::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::::BBBBBB:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::::::::::::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k</p>
+        <p>&nbsp;&nbsp;C:::::CCCCCCCC::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BB:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::ZZZZZZZZ:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k::::::k</p>
+        <p>&nbsp;C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCC&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;aaaaaaaaaaaaa&nbsp;&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZZZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oo:::::::::::oo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;a::::::::::::a&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oo:::::::::::oo&nbsp;&nbsp;oo:::::::::::oo&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::::::::::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::BBBBBB:::::B&nbsp;&nbsp;&nbsp;aaaaaaaaa:::::a&nbsp;&nbsp;k:::::k&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::::::::::::oo:::::::::::::::o&nbsp;k:::::k&nbsp;&nbsp;k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::ooooo:::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::::::::::BB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a::::a&nbsp;&nbsp;k:::::k&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o:::::ooooo:::::oo:::::ooooo:::::o&nbsp;k:::::k&nbsp;k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::BBBBBB:::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaaaaaa:::::a&nbsp;&nbsp;k::::::k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k::::::k:::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;&nbsp;aa::::::::::::a&nbsp;&nbsp;k:::::::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k:::::::::::k</p>
+        <p>C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::B&nbsp;a::::aaaa::::::a&nbsp;&nbsp;k:::::::::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k:::::::::::k</p>
+        <p>&nbsp;C:::::C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCCo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B::::B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B:::::Ba::::a&nbsp;&nbsp;&nbsp;&nbsp;a:::::a&nbsp;&nbsp;k::::::k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZ:::::Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZZZZo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::oo::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o::::o&nbsp;k::::::k:::::k</p>
+        <p>&nbsp;&nbsp;C:::::CCCCCCCC::::Co:::::ooooo:::::o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BB:::::BBBBBB::::::Ba::::a&nbsp;&nbsp;&nbsp;&nbsp;a:::::a&nbsp;k::::::k&nbsp;k:::::k&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z::::::ZZZZZZZZ:::Zo:::::ooooo:::::oo:::::ooooo:::::ok::::::k&nbsp;k:::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;CC:::::::::::::::Co:::::::::::::::o&nbsp;......&nbsp;B:::::::::::::::::B&nbsp;a:::::aaaa::::::a&nbsp;k::::::k&nbsp;&nbsp;k:::::k&nbsp;&nbsp;&nbsp;......&nbsp;Z:::::::::::::::::Zo:::::::::::::::oo:::::::::::::::ok::::::k&nbsp;&nbsp;k:::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCC::::::::::::C&nbsp;oo:::::::::::oo&nbsp;&nbsp;.::::.&nbsp;B::::::::::::::::B&nbsp;&nbsp;&nbsp;a::::::::::aa:::ak::::::k&nbsp;&nbsp;&nbsp;k:::::k&nbsp;&nbsp;.::::.&nbsp;Z:::::::::::::::::Z&nbsp;oo:::::::::::oo&nbsp;&nbsp;oo:::::::::::oo&nbsp;k::::::k&nbsp;&nbsp;&nbsp;k:::::k</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCCCCCCCCCCCC&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;......&nbsp;BBBBBBBBBBBBBBBBB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaaaaaaaaa&nbsp;&nbsp;aaaakkkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk&nbsp;......&nbsp;ZZZZZZZZZZZZZZZZZZZ&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ooooooooooo&nbsp;&nbsp;&nbsp;kkkkkkkk&nbsp;&nbsp;&nbsp;&nbsp;kkkkkkk</p>
+    </div>
+    <div class="logo-130">
+        <p>&nbsp;&nbsp;1111111&nbsp;&nbsp;&nbsp;&nbsp;333333333333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;000000000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p>
+            &nbsp;1::::::1&nbsp;&nbsp;&nbsp;3:::::::::::::::33&nbsp;&nbsp;&nbsp;&nbsp;00:::::::::00&nbsp;&nbsp;&nbsp;</p>
+        <p>1:::::::1&nbsp;&nbsp;&nbsp;3::::::33333::::::3 00:::::::::::::00&nbsp;</p>
+        <p>111:::::1&nbsp;&nbsp;&nbsp;3333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::::000:::::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30::::::0&nbsp;&nbsp;&nbsp;0::::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33333333:::::3&nbsp;0:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::::::::3&nbsp;&nbsp;0:::::0&nbsp;000&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33333333:::::3&nbsp;0:::::0&nbsp;000&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0:::::0</p>
+        <p>&nbsp;&nbsp;&nbsp;1::::l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30::::::0&nbsp;&nbsp;&nbsp;0::::::0</p>
+        <p>111::::::1113333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3:::::30:::::::000:::::::0</p>
+        <p>1::::::::::13::::::33333::::::3&nbsp;00:::::::::::::00&nbsp;</p>
+        <p>1::::::::::13:::::::::::::::33&nbsp;&nbsp;&nbsp;&nbsp;00:::::::::00&nbsp;&nbsp;&nbsp;</p>
+        <p>
+            111111111111&nbsp;333333333333333&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;000000000&nbsp;&nbsp;</p>
+    </div>
 </div>
+
+<div class="write-container">
+    <button onclick="openWriteForm()" class="write-openbutton">Create Post&nbsp;<i class="fa fa-pencil-square-o"
+                                                                              aria-hidden="true"></i></button>
+    <div class="write-form">
+        <h1>POST FORM</h1>
+        <h3>URL</h3>
+        <input class="write-url-input" type="text">
+        <h3>TITLE</h3>
+        <input class="write-title-input" type="text">
+        <h3>DESCRIPTION</h3>
+        <textarea class="write-desc-input" type="text" rows="3"></textarea>
+        <button onclick="submitButton()" class="write-submit-button">Submit</button>
+    </div>
+</div>
+
 <div class="boxing">
     <input type="text" id="src" style="text-align: center">
     <a class="search-button" onclick="searchWord()" href="#" id="search-box">
         <i class="fa fa-search" aria-hidden="true"></i>
     </a>
 </div>
-<div class="write-container">
-    <button onclick="openWriteForm()" class="write-openbutton">작성 창 열기&nbsp;<i class="fa fa-pencil-square-o"
-                                                                               aria-hidden="true"></i></button>
-    <div class="write-form">
-        <h1>작성하기</h1>
-        <h3>URL</h3>
-        <input class="write-url-input" type="text" placeholder="url을 입력해주세요">
-        <h3>타이틀</h3>
-        <input class="write-title-input" type="text" placeholder="타이틀을 입력해주세요">
-        <h3>설명</h3>
-        <textarea class="write-desc-input" type="text" placeholder="설명을 입력해주세요" rows="3"></textarea>
-        <button onclick="submitButton()" class="write-submit-button" style="color: green">작성완료</button>
-    </div>
-</div>
+
 <div class="search-box">
     <i onclick="back_home()" class="fa fa-undo" aria-hidden="true"></i>
 </div>
@@ -289,6 +337,7 @@
         }
         let likeContainer = $(`#${writingId}`);
         let likeOrUnlke = likeContainer.find('i');
+        console.log('before ajax');
         if (likeOrUnlke.hasClass('far')) {
             $.ajax({
                 type: "POST",
@@ -299,6 +348,7 @@
                 },
                 success: function (response) {
                     if (response['result'] === "success") {
+                        console.log('in ajax');
                         likeOrUnlke.addClass('fas').removeClass('far');
                         likeContainer.find('.like_count').text(response['count']);
                     } else {
@@ -351,14 +401,14 @@
         let nowdisplay = $('.write-form').css('display');
         if (nowdisplay === 'none') {
             $('.write-form').css('display', "flex");
-            $('.write-openbutton').text('작성 창 닫기 ')
+            $('.write-openbutton').text('Close ')
             let newdata = document.createElement('i')
             newdata.setAttribute('class', 'fa fa-times')
             newdata.setAttribute('aria-hidden', 'true')
             $('.write-openbutton').append(newdata)
         } else {
             $('.write-form').hide();
-            $('.write-openbutton').text('작성 창 열기 ')
+            $('.write-openbutton').text('Create Post ')
             let newdata = document.createElement('i')
             newdata.setAttribute('class', 'fa fa-pencil-square-o')
             newdata.setAttribute('aria-hidden', 'true')
@@ -428,13 +478,25 @@
                         `;
                         $('.search-box').append(newData);
                     }
+                    /*let locations = document.querySelector('.search-box .mycard').offsetHeight;
+                    let finallocation = 0;
+                    let arr = document.querySelector('.search-box').getElementsByClassName('mycard');
+                    for (i = 0; i < 3; i++) {
+                        if (arr[i]) {
+                            if (arr[i].offsetHeight >= locations) {
+                                locations = arr[i].offsetHeight;
+                                finallocation = arr[i].offsetHeight + arr[i].offsetTop + 24;
+                            }
+                        }
+                    }*/
+                    window.scrollTo({top: window.outerHeight - 130, behavior: 'smooth'});
                 }
-
             }
         })
     }
 
     function back_home() {
+        $('.search-box .mycard').remove();
         reloadCardBox();
         $('.card-box').show();
         $('.search-box').hide();
@@ -454,6 +516,7 @@
             success: function (response) {
                 if (response['result'] === 'success') {
                     let writings = response['writings'];
+                    console.log(writings);
                     for (let i = 0; i < writings.length; i++) {
                         let newData = `
                         <div class="mycard" id="${writings[i]['_id']}">
@@ -473,6 +536,8 @@
                         `;
                         $('.card-box').prepend(newData);
                     }
+                    /*const locations = document.querySelector('.card-box').firstElementChild.offsetTop - 80;*/
+                    window.scrollTo({top: window.outerHeight - 130, behavior: 'smooth'});
                 }
             }
         })

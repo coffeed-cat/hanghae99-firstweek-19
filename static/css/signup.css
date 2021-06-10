@@ -15,6 +15,10 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #000000;
+    background-image: url("https://media.discordapp.net/attachments/851270781815357454/852340671976701968/hacker-3480124_1920.jpg?width=1011&height=669");
+    background-position: center center;
+    background-size: cover;
 }
 
 .signup-container {

@@ -1,36 +1,42 @@
-@-webkit-keyframes slide-top {
+@-webkit-keyframes shadow-drop-2-br {
     0% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
+        -webkit-transform: translateZ(0) translateX(0) translateY(0);
+        transform: translateZ(0) translateX(0) translateY(0);
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
     100% {
-        -webkit-transform: translateY(-100px);
-        transform: translateY(-100px);
+        -webkit-transform: translateZ(50px) translateX(-12px) translateY(-12px);
+        transform: translateZ(50px) translateX(-12px) translateY(-12px);
+        -webkit-box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
+        box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
     }
 }
 
-@keyframes slide-top {
+@keyframes shadow-drop-2-br {
     0% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
+        -webkit-transform: translateZ(0) translateX(0) translateY(0);
+        transform: translateZ(0) translateX(0) translateY(0);
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
     100% {
-        -webkit-transform: translateY(-100px);
-        transform: translateY(-100px);
+        -webkit-transform: translateZ(50px) translateX(-12px) translateY(-12px);
+        transform: translateZ(50px) translateX(-12px) translateY(-12px);
+        -webkit-box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
+        box-shadow: 12px 12px 20px -12px rgba(0, 0, 0, 0.35);
     }
 }
 
-
-.slide-top {
-    -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+.shadow-drop-2-br {
+    -webkit-animation: shadow-drop-2-br 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: shadow-drop-2-br 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Jua', sans-serif;
 }
 
 body {
@@ -39,10 +45,11 @@ body {
     justify-content: flex-start;
     align-items: center;
     background-color: black;
-    background-image: url("https://i0.wp.com/code.iamseapy.com/wp-content/uploads/2017/11/cool-retro-term_screen.mov-00.06.15.000.png?resize=625%2C352&ssl=1");
+    background-image: url("https://media.discordapp.net/attachments/851270781815357454/852340671976701968/hacker-3480124_1920.jpg?width=1011&height=669");
     background-position: center center;
     background-size: cover;
 }
+
 
 input:focus {
     outline: 0;
@@ -55,28 +62,9 @@ h1 {
 
 #logo {
     text-align: left;
-    color: white;
+    color: limegreen;
 }
 
-#src {
-    width: 430px;
-    height: 40px;
-}
-
-#font_1 {
-    font-size: 4.5rem;
-    color: #f27500;
-}
-
-#font_2 {
-    font-size: 4.5rem;
-    color: #f27500;
-}
-
-#font_3 {
-    font-size: 4.5rem;
-    color: #f27500;
-}
 
 .card-box, .search-box {
     width: 70%;
@@ -84,20 +72,20 @@ h1 {
 }
 
 .mycard {
-    color: white;
+    background-color: black;
+    color: limegreen;
     display: inline-block;
     width: 28%;
     margin: 12px;
     border: limegreen 3px solid;
     padding: 5px;
-    border-radius: 10px;
     max-width: 100%;
     word-wrap: break-word;
 }
 
 .mycard:hover {
-    -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    -webkit-animation: shadow-drop-2-br 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: shadow-drop-2-br 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 
@@ -112,42 +100,49 @@ h1 {
 
 .like-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 15px;
-    bottom: 15px;
+    right: 12px;
+    bottom: -2px;
 }
 
 .card-body i {
     color: limegreen;
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
 }
 
 .like_count {
+    position: relative;
+    bottom: 1px;
+    font-size: 15px;
     margin: 0;
-    margin-top: 6px;
+    margin-left: 8px;
 }
 
 .boxing {
+    position: relative;
+    bottom: 20px;
     display: flex;
     align-items: center;
 }
 
 #src {
-    border-radius: 20px;
-
-    width: 400px;
-    height: 40px;
+    font-size: 23px;
+    width: 600px;
+    height: 45px;
+    background-color: black;
+    border: limegreen 1px solid;
 }
 
 .search-button {
+    font-size: 20px;
+    background-color: black;
     text-decoration: none;
     display: inline-block;
-    border: 2px solid limegreen;
-    border-radius: 20px;
+    border: 1px solid limegreen;
     padding: 10px 20px;
     color: white;
     position: relative;
@@ -159,7 +154,8 @@ h1 {
     content: '';
     width: 0;
     height: 100%;
-    background-color: limegreen;
+    background-color: gray;
+    opacity: 0.3;
     position: absolute;
     left: 0;
     top: 0;
@@ -173,24 +169,54 @@ h1 {
 
 .button-box {
     margin-left: 80%;
+    position: relative;
+    top: 40px;
 }
 
-.logout-button {
-    color: white;
-    background-color: transparent;
-    border: limegreen 3px solid;
+.logout-button, .login-button {
+    cursor: pointer;
+    font-size: 20px;
+    color: limegreen;
+    background-color: black;
+    border: limegreen 1px solid;
     outline: 0;
-    border-radius: 10px;
     display: none;
-    padding: 12px;
+    padding: 5px;
+    width: 120px;
+    transition: all 80ms linear;
 }
 
-.login-button {
-    padding: 12px;
-    color: white;
-    background-color: transparent;
-    border: limegreen 3px solid;
-    outline: 0;
-    border-radius: 10px;
-    display: none;
+.login-button:hover,.logout-button:hover {
+    background-color: rgba(51, 51, 51,1);
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 100px;
+}
+
+.logo-130 {
+    position: relative;
+    top: -110px;
+    right: -305px;
+    width: 350px;
+    height: 227px;
+    text-align: center;
+    transform: scale(0.22);
+}
+
+.logo-130 p {
+    font-size: 1px;
+}
+
+.logo-CBZ {
+    transform: scale(0.7);
+}
+
+.logo-CBZ p {
+    font-size: 1px;
 }
