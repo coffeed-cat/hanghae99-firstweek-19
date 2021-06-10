@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>130_코박죽</title>
+    <title>Main | 코박죽</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
@@ -77,7 +77,7 @@
         }
 
         .write-submit-button:hover {
-            background-color: rgba(204,204,204,0.2);
+            background-color: rgba(204, 204, 204, 0.2);
         }
 
         .write-container {
@@ -147,13 +147,17 @@
             position: relative;
         }
 
-        .fa-undo {
-            color: white;
+
+        .go-back-container{
+            cursor: pointer;
+            color: limegreen;
             position: absolute;
-            font-size: 50px;
-            top: 25px;
-            left: -80px;
+            font-size: 36px;
+            top: -60px;
+            left: 2%;
+            margin: 0px;
         }
+
 
 
     </style>
@@ -207,9 +211,10 @@
     </div>
 </div>
 
+
 <div class="write-container">
     <button onclick="openWriteForm()" class="write-openbutton">Create Post&nbsp;<i class="fa fa-pencil-square-o"
-                                                                              aria-hidden="true"></i></button>
+                                                                                   aria-hidden="true"></i></button>
     <div class="write-form">
         <h1>POST FORM</h1>
         <h3>URL</h3>
@@ -230,11 +235,12 @@
 </div>
 
 <div class="search-box">
-    <i onclick="back_home()" class="fa fa-undo" aria-hidden="true"></i>
+    <p class="go-back-container" onclick="back_home()">GO BACK <i class="fa fa-undo" aria-hidden="true"></i></p>
 </div>
 <div class="card-box">
     {% for writing in writings %}
         <div class="mycard" id="{{ writing['_id'] }}">
+            <a href="{{ writing['url'] }}">
             <img class="card-img-top"
                     {% if writing['img_url'] %}
                  src="{{ writing['img_url'] }}"
@@ -242,14 +248,16 @@
                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bicycle_Red_Standard_Cards.png/330px-Bicycle_Red_Standard_Cards.png"
                     {% endif %}
                  alt="Card image cap">
+            </a>
             <div class="card-body">
-                <a href="{{ writing['url'] }}"><h5 class="card-title">{{ writing['title'] }}</h5></a>
+            <i class="card-delete-button far fa-trash-alt" onclick="deleteWriting('{{ writing['_id'] }}')"></i>
+                <p class="like_count_container"><span class="like_count">{{ writing['like_count'] }}</span>명이 좋아합니다!</p>
+                <a class="card-title">{{ writing['title'] }}</a>
                 <p class="card-text">{{ writing['desc'] }}</p>
-                <p>by {{ writing['writer_id'] }}</p>
+                <p class="card-writer">by {{ writing['writer_id'] }}</p>
                 <div class="like-container">
-                    <i class="{{ writing['like_or_unlike'] }} fa-heart"
+                    <i class="{{ writing['like_or_unlike'] }} fa-heart like-button"
                        onclick="toggleLike('{{ writing['_id'] }}')"></i>
-                    <p class="like_count">{{ writing['like_count'] }}</p>
                 </div>
             </div>
         </div>
@@ -305,16 +313,19 @@
                     for (let i = 0; i < writings.length; i++) {
                         let newData = `
                         <div class="mycard" id="${writings[i]['_id']}">
+                            <a href="${writings[i]['url']}">
                             <img class="card-img-top"
                                  src="${writings[i]['img_url'] ? writings[i]['img_url'] : dummy_image}"
                                  alt="Card image cap">
+                                 </a>
                             <div class="card-body">
-                                <a href="${writings[i]['url']}"><h5 class="card-title">${writings[i]['title']}</h5></a>
+                            <i class="card-delete-button far fa-trash-alt" onclick="deleteWriting('${writings[i]['_id']}')"></i>
+                            <p class="like_count_container"><span class="like_count">${writings[i]['like_count']}</span>명이 좋아합니다!</p>
+                                <a class="card-title">${writings[i]['title']}</a>
                                 <p class="card-text">${writings[i]['desc']}</p>
-                                <p>by ${writings[i]['writer_id']}</p>
+                                <p class="card-writer">by ${writings[i]['writer_id']}</p>
                                 <div class="like-container">
-                                <i class="${writings[i]['like_or_unlike']} fa-heart" onclick="toggleLike('${writings[i]['_id']}')"></i>
-                                <p class="like_count">${writings[i]['like_count']}</p>
+                                <i class="${writings[i]['like_or_unlike']} fa-heart like-button" onclick="toggleLike('${writings[i]['_id']}')"></i>
                                 </div>
                             </div>
                         </div>
@@ -336,7 +347,7 @@
             return;
         }
         let likeContainer = $(`#${writingId}`);
-        let likeOrUnlke = likeContainer.find('i');
+        let likeOrUnlke = likeContainer.find('.like-button');
         console.log('before ajax');
         if (likeOrUnlke.hasClass('far')) {
             $.ajax({
@@ -462,16 +473,19 @@
                     for (let i = 0; i < search_result.length; i++) {
                         let newData = `
                         <div class="mycard" id="${search_result[i]['_id']}">
+                            <a href="${search_result[i]['url']}">
                             <img class="card-img-top"
                                  src="${search_result[i]['img_url'] ? search_result[i]['img_url'] : dummy_image}"
                                  alt="Card image cap">
+                            </a>
                             <div class="card-body">
-                                <a href="${search_result[i]['url']}"><h5 class="card-title">${search_result[i]['title']}</h5></a>
+                            <i class="card-delete-button far fa-trash-alt" onclick="deleteWriting('${search_result[i]['_id']}')"></i>
+                                <p class="like_count_container"><span class="like_count">${search_result[i]['like_count']}</span>명이 좋아합니다!</p>
+                                <a class="card-title">${search_result[i]['title']}</a>
                                 <p class="card-text">${search_result[i]['desc']}</p>
-                                <p>by ${search_result[i]['writer_id']}</p>
+                                <p class="card-writer">by ${search_result[i]['writer_id']}</p>
                                 <div class="like-container">
-                                <i class="${search_result[i]['like_or_unlike']} fa-heart" onclick="toggleLike('${search_result[i]['_id']}')"></i>
-                                <p class="like_count">${search_result[i]['like_count']}</p>
+                                <i class="${search_result[i]['like_or_unlike']} fa-heart like-button" onclick="toggleLike('${search_result[i]['_id']}')"></i>
                                 </div>
                             </div>
                         </div>
@@ -489,6 +503,10 @@
                             }
                         }
                     }*/
+                    window.scrollTo({top: window.outerHeight - 130, behavior: 'smooth'});
+                }else{
+                    let newData = `<h1 class="search-fail-text">${response['msg']}</h1>`;
+                    $('.search-box').append(newData);
                     window.scrollTo({top: window.outerHeight - 130, behavior: 'smooth'});
                 }
             }
@@ -517,19 +535,23 @@
                 if (response['result'] === 'success') {
                     let writings = response['writings'];
                     console.log(writings);
-                    for (let i = 0; i < writings.length; i++) {
+                    for (let i = writings.length-1; i >= 0; i--) {
+                        console.log(writings[i]);
                         let newData = `
                         <div class="mycard" id="${writings[i]['_id']}">
+                            <a href="${writings[i]['url']}">
                             <img class="card-img-top"
                                  src="${writings[i]['img_url'] ? writings[i]['img_url'] : dummy_image}"
                                  alt="Card image cap">
+                            </a>
                             <div class="card-body">
-                                <a href="${writings[i]['url']}"><h5 class="card-title">${writings[i]['title']}</h5></a>
+                            <i class="card-delete-button far fa-trash-alt" onclick="deleteWriting('${writings[i]['_id']}')"></i>
+                                <p class="like_count_container"><span class="like_count">${writings[i]['like_count']}</span>명이 좋아합니다!</p>
+                                <a class="card-title">${writings[i]['title']}</a>
                                 <p class="card-text">${writings[i]['desc']}</p>
-                                <p>by ${writings[i]['writer_id']}</p>
+                                <p class="card-writer">by ${writings[i]['writer_id']}</p>
                                 <div class="like-container">
-                                <i class="${writings[i]['like_or_unlike']} fa-heart" onclick="toggleLike('${writings[i]['_id']}')"></i>
-                                <p class="like_count">${writings[i]['like_count']}</p>
+                                <i class="${writings[i]['like_or_unlike']} fa-heart like-button" onclick="toggleLike('${writings[i]['_id']}')"></i>
                                 </div>
                             </div>
                         </div>
@@ -542,6 +564,27 @@
             }
         })
     }
+
+    function deleteWriting(writing_id) {
+        if (confirm('게시글을 삭제하시겠습니까?')) {
+            $.ajax({
+                type: "POST",
+                url: `/delete_writing`,
+                data: {
+                    'writing_id': writing_id
+                },
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        alert(response['msg']);
+                        window.location.reload()
+                    } else {
+                        alert(response['msg']);
+                    }
+                }
+            })
+        }
+    }
+
 </script>
 </body>
 

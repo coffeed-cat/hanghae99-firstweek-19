@@ -8,12 +8,13 @@ import datetime
 import hashlib
 import requests
 from bs4 import BeautifulSoup
+from bson.objectid import ObjectId
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 SECRET_KEY = 'HappyProject'
-client = MongoClient('localhost', 27017)
-db = client.selfstudy
+client = MongoClient('mongodb://firstwerk_19:weare19@localhost', 27017)
+db = client.cbz
 
 
 @app.route('/', methods=['GET'])
@@ -97,7 +98,7 @@ def api_login():
     if isThisIdRight:
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         return jsonify({'result': 'success', 'token': token})
@@ -176,6 +177,8 @@ def search():
     token_receive = request.cookies.get('mycookie')
     title_receive = request.args.get('title_give')
     search_list = list(db.writings.find({'title': {'$regex': title_receive}}))
+    if len(search_list) == 0 :
+        return jsonify({'result': 'fail', 'msg': '검색결과가 존재하지 않습니다.'})
 
     try:
         if token_receive:
@@ -223,6 +226,26 @@ def reload():
 
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
+
+@app.route('/delete_writing', methods=['POST'])
+def delete():
+    # JWT에서 아이디 추출 -> 게시물아이디로 writing 검색해서 아이디랑 맞으면 success, msg
+    # 틀리면 fail, msg 반환
+    token_receive = request.cookies.get('mycookie')
+    writing_id = request.form['writing_id']
+    try:
+        # 사용자 검증
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        if db.writings.find_one({'writer_id': payload['id'],'_id':ObjectId(writing_id)}):
+            db.writings.delete_one({'_id': ObjectId(writing_id)})
+            db.likes.delete_many({'writing_id':writing_id})
+            return jsonify({'result':'success','msg':'게시물이 삭제되었습니다.'})
+        else :
+            return jsonify({'result':'fail','msg':'다른 작성자의 게시물은 삭제할 수 없습니다.'})
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
 
 
 if __name__ == '__main__':
