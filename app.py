@@ -13,7 +13,8 @@ from bson.objectid import ObjectId
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 SECRET_KEY = 'HappyProject'
-client = MongoClient('mongodb://firstwerk_19:weare19@localhost', 27017)
+client = MongoClient('mongodb://test:test@localhost', 27017)
+# client = MongoClient('localhost', 27017)
 db = client.cbz
 
 
@@ -138,6 +139,8 @@ def write():
         data = requests.get(url_receive, headers=headers)
         soup = BeautifulSoup(data.text, 'html.parser')
         img_url = soup.select_one('meta[property="og:image"]')['content']
+        if img_url[0:4] != 'http':
+            img_url=None
 
         writer_id = payload['id']
         title_receive = request.form['title_give']
